@@ -11,9 +11,30 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 addManager();
-addEmployee();
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function addManager() {
+  const managerInput = [
+    { type: "input", message: "What is the manager's name?", name: "name" },
+    { type: "input", message: "What is the manager's ID?", name: "id" },
+    {
+      type: "input",
+      message: "What is the manager's office number?",
+      name: "officeNumber",
+    },
+    { type: "input", message: "What is the manager's email?", name: "email" },
+    {
+      type: "input",
+      message: "What is the manager's GitHub account name?",
+      name: "GitHubUser",
+    },
+  ];
+  inquirer.prompt(managerInput).then(function (response) {
+    console.log(response);
+    addEmployee();
+  });
+}
 function addEmployee() {
   inquirer
     .prompt([
@@ -21,66 +42,57 @@ function addEmployee() {
         type: "checkbox",
         name: "position",
         message: "What kind of employee would you like to add?",
-        choices: ["Engineer", "Intern", "Abort Question"],
+        choices: ["Engineer", "Intern", "None"],
       },
     ])
     .then(function (response) {
-      if (response.position === "Engineer") {
+      if (response.position == "Engineer") {
         addEngineer();
-      } else if (response.position === "Intern") {
+      } else if (response.position == "Intern") {
         addIntern();
-      } else if (response.position === "Abort Question") {
+      } else if (response.position == "None") {
+        console.log("All done.");
         return;
       }
     });
 }
-
-function addManager() {
-  inquirer
-    .prompt([
-      { type: "input", message: "What is the manager's name?", name: "name" },
-      { type: "input", message: "What is the manager's ID?", name: "id" },
-      { type: "input", message: "What is the manager's email?", name: "email" },
-      {
-        type: "input",
-        message: "What is the manager's GitHub?",
-        name: "github",
-      },
-    ])
-    .then(function (response) {});
-}
 function addEngineer() {
-  inquirer
-    .prompt([
-      { type: "input", message: "What is the engineer's name?", name: "name" },
-      { type: "input", message: "What is the engineer's ID?", name: "id" },
-      {
-        type: "input",
-        message: "What is the engineer's email?",
-        name: "email",
-      },
-      {
-        type: "input",
-        message: "What is the engineer's GitHub?",
-        name: "github",
-      },
-    ])
-    .then(function (response) {});
+  const engineerInput = [
+    { type: "input", message: "What is the engineer's name?", name: "name" },
+    { type: "input", message: "What is the engineer's ID?", name: "id" },
+    {
+      type: "input",
+      message: "What is the engineer's email?",
+      name: "email",
+    },
+    {
+      type: "input",
+      message: "What is the engineer's GitHub?",
+      name: "GitHubUser",
+    },
+  ];
+  inquirer.prompt(engineerInput).then(function (response) {
+    console.log(response);
+    addEmployee();
+  });
 }
 
 function addIntern() {
-  inquirer
-    .prompt([
-      { type: "input", message: "What is the intern's name?", name: "name" },
-      { type: "input", message: "What is the intern's ID?", name: "id" },
-      { type: "input", message: "What is the intern's email?", name: "email" },
-      {
-        type: "input",
-        message: "What is the intern's school name?",
-        name: "school",
-      },
-    ])
-    .then(function (response) {});
+  const internInput = [
+    { type: "input", message: "What is the intern's name?", name: "name" },
+    { type: "input", message: "What is the intern's ID?", name: "id" },
+    { type: "input", message: "What is the intern's email?", name: "email" },
+    {
+      type: "input",
+      message: "What is the intern's school name?",
+      name: "school",
+    },
+  ];
+
+  inquirer.prompt(internInput).then(function (response) {
+    console.log(response);
+    addEmployee();
+  });
 }
 
 // inquirer
