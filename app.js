@@ -10,6 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const team = [];
+
 addManager();
 
 // Write code to use inquirer to gather information about the development team members,
@@ -39,7 +41,7 @@ function addEmployee() {
   inquirer
     .prompt([
       {
-        type: "checkbox",
+        type: "list",
         name: "position",
         message: "What kind of employee would you like to add?",
         choices: ["Engineer", "Intern", "None"],
@@ -52,7 +54,7 @@ function addEmployee() {
         addIntern();
       } else if (response.position == "None") {
         console.log("All done.");
-        return;
+        //fn to rednder HTMl page
       }
     });
 }
