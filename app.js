@@ -10,9 +10,96 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
+addManager();
+addEmployee();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "checkbox",
+        name: "position",
+        message: "What kind of employee would you like to add?",
+        choices: ["Engineer", "Intern", "Abort Question"],
+      },
+    ])
+    .then(function (response) {
+      if (response.position === "Engineer") {
+        addEngineer();
+      } else if (response.position === "Intern") {
+        addIntern();
+      } else if (response.position === "Abort Question") {
+        return;
+      }
+    });
+}
+
+function addManager() {
+  inquirer
+    .prompt([
+      { type: "input", message: "What is the manager's name?", name: "name" },
+      { type: "input", message: "What is the manager's ID?", name: "id" },
+      { type: "input", message: "What is the manager's email?", name: "email" },
+      {
+        type: "input",
+        message: "What is the manager's GitHub?",
+        name: "github",
+      },
+    ])
+    .then(function (response) {});
+}
+function addEngineer() {
+  inquirer
+    .prompt([
+      { type: "input", message: "What is the engineer's name?", name: "name" },
+      { type: "input", message: "What is the engineer's ID?", name: "id" },
+      {
+        type: "input",
+        message: "What is the engineer's email?",
+        name: "email",
+      },
+      {
+        type: "input",
+        message: "What is the engineer's GitHub?",
+        name: "github",
+      },
+    ])
+    .then(function (response) {});
+}
+
+function addIntern() {
+  inquirer
+    .prompt([
+      { type: "input", message: "What is the intern's name?", name: "name" },
+      { type: "input", message: "What is the intern's ID?", name: "id" },
+      { type: "input", message: "What is the intern's email?", name: "email" },
+      {
+        type: "input",
+        message: "What is the intern's school name?",
+        name: "school",
+      },
+    ])
+    .then(function (response) {});
+}
+
+// inquirer
+//     .prompt(questionList)
+//     .then(function (response) {
+//         console.log(response);
+//         const markdownString = generateMarkdown(response);
+
+//         writeFileAsync("readme.md", markdownString)
+//             .then(() => {
+//                 console.log("Successfully wrote file.");
+//             })
+//             .catch((err) => {
+//                 console.log(err);
+//             });
+//     })
+//     .catch((err) => {
+//     console.log(err);
+// });
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
