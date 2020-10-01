@@ -33,7 +33,13 @@ function addManager() {
     },
   ];
   inquirer.prompt(managerInput).then(function (response) {
-    console.log(response);
+    const manager = new Manager(
+      response.name,
+      response.id,
+      response.email,
+      response.officeNumber
+    );
+    team.push(manager);
     addEmployee();
   });
 }
@@ -53,8 +59,14 @@ function addEmployee() {
       } else if (response.position == "Intern") {
         addIntern();
       } else if (response.position == "None") {
-        console.log("All done.");
-        //fn to rednder HTMl page
+        //fn to render HTMl page
+        // render(team);
+        fs.writeFile("team.html", render(team), function (err) {
+          if (err) {
+            throw err;
+          }
+          console.log("Putting team together!");
+        });
       }
     });
 }
@@ -75,6 +87,13 @@ function addEngineer() {
   ];
   inquirer.prompt(engineerInput).then(function (response) {
     console.log(response);
+    const person = new Engineer(
+      response.name,
+      response.id,
+      response.email,
+      response.GitHubUser
+    );
+    team.push(person);
     addEmployee();
   });
 }
@@ -92,7 +111,13 @@ function addIntern() {
   ];
 
   inquirer.prompt(internInput).then(function (response) {
-    console.log(response);
+    const intern = new Intern(
+      response.name,
+      response.id,
+      response.email,
+      response.school
+    );
+    team.push(intern);
     addEmployee();
   });
 }
