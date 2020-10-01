@@ -1,4 +1,4 @@
-![License](https://img.shields.io/badge/License--red)
+![License](https://img.shields.io/badge/License-MIT-red)
 
 ## Title
 
