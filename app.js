@@ -13,9 +13,7 @@ const render = require("./lib/htmlRenderer");
 const team = [];
 
 addManager();
-
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+//App begins by asking for the manager info. This makes it so that only one manager may be created.
 function addManager() {
   const managerInput = [
     { type: "input", message: "What is the manager's name?", name: "name" },
@@ -43,6 +41,7 @@ function addManager() {
     addEmployee();
   });
 }
+//Employee Questions. Asks whether user wants to add Engineer, Intern, or stop adding members.
 function addEmployee() {
   inquirer
     .prompt([
@@ -60,8 +59,7 @@ function addEmployee() {
         addIntern();
       } else if (response.position == "None") {
         //fn to render HTMl page
-        // render(team);
-        fs.writeFile("team.html", render(team), function (err) {
+        fs.writeFile(outputPath, render(team), function (err) {
           if (err) {
             throw err;
           }
@@ -70,6 +68,7 @@ function addEmployee() {
       }
     });
 }
+//Asks for Engineer info if user selected add an engineer.
 function addEngineer() {
   const engineerInput = [
     { type: "input", message: "What is the engineer's name?", name: "name" },
@@ -97,7 +96,7 @@ function addEngineer() {
     addEmployee();
   });
 }
-
+//Asks for intern info if user selects add intern.
 function addIntern() {
   const internInput = [
     { type: "input", message: "What is the intern's name?", name: "name" },
@@ -121,41 +120,3 @@ function addIntern() {
     addEmployee();
   });
 }
-
-// inquirer
-//     .prompt(questionList)
-//     .then(function (response) {
-//         console.log(response);
-//         const markdownString = generateMarkdown(response);
-
-//         writeFileAsync("readme.md", markdownString)
-//             .then(() => {
-//                 console.log("Successfully wrote file.");
-//             })
-//             .catch((err) => {
-//                 console.log(err);
-//             });
-//     })
-//     .catch((err) => {
-//     console.log(err);
-// });
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
